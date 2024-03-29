@@ -56,10 +56,11 @@ Os processos tem seu pequeno armazenamento pessoal e filesystem, mas eles são t
 
 
 <h3>8.Concorrência</h3>
+<p><b>Escalar via o modelo de processos</b> <br>
 
 ![alt text](image-2.png)
 
-<p><b>Escalar via o modelo de processos</b> <br>12factorsapp precisa tem seus processos modulados e capazes de rodar e escalar de forma independente e atendendo a demanda necessaria<br> 
+12factorsapp precisa tem seus processos modulados e capazes de rodar e escalar de forma independente e atendendo a demanda necessaria<br> 
 ex: Uma aplicação tem um processo para logar o usuario, mas um servico interno que ele esta requisitando vai ser cuidado por outro processo. Dessa forma podemos escala-los independentemente um do outr, o login pode ter 100 copias do processo enquanto o processo mais complicado interno teria 500 copias do processo.   
 
 <h3>9.Descartabilidade</h3>
@@ -68,3 +69,26 @@ Um aplicatico segue a 12factorapp metodologia quando tem todos seus processos ca
 <p>A velocidade de inicialização é o segundo pilar da descartabilidade, os processos são todos capazes de se resetarem e reiniciarem em dessa forma sendo tambem automatizaveis.
 
 <h3>10.Dev e Prod Semelhantes</h3>
+<p><b>Mantenha os ambientes stage, development e production o mais parecido possivel entre eles</b><br>
+
+![alt text](image-3.png)
+
+<p> Existe um gap entre cada uma desses ambientes, ele se manifesta de tres formas diferentes.
+<li>Tempo: Um codigo para se mover de dev até production pode levar dias ou semanas (ate meses).
+<li>Pessoal: Programadores codam e la longe os ops rodam o codigo.
+<li>Tecnico: É costumeiro usar versoes mais lights para o ambiente dev e depois mudar quando move a app para produção. ex: sqlite em dev e mysql na produção.<br><br>
+
+<p>As tres são resolvidas facilmente porem de suma importancia para o encorajamento de Continuous Delivery.
+<li>Fazemos deploys menores e mais frequentes para o gap de tempo ser diminuido.
+<li>Equipes mais proximas, o dev precisa estar mais presente na hora de rodar o codigo, a builkd deve ser feita juntamente aos devs.
+<li>O uso de conteiners evitam completamente a necessidade de usar ambientes mais "leves" na prod, podemos facilmente ter esse ambiente containerizado e pronto para ser usado em qualquer ambiente. 
+
+<h3>11.Logs</h3>
+<p><b>Tratar logs como um stream de eventos</b><br>
+<p>Os logs sao toda info gerada por uma aplicação que está rodando, enquanto roda, gera log, e quando gera log uma aplicação dde 12 fatores não guarda nada, so emite tudo para um outro serviço externo e pronto.<br>
+Os logs por sua vez são de enorme importancia para a estabilidade e conehcimento do nosso aplicativo, são uma janela no passado que nos mostra as tendencia para o futuro.
+
+<h3>12.Processos de Admin</h3>
+<p><b>Rode atividades unicas de administração com scripts separados</b><br>
+<p>Um exemplo aqui seria uma migração de um banco de dados, algo que seria feito apenas uma vez, para esse desenvolvimento no estilo 12fatores, precisamos de um ambiente muito similar ao de produção para desenvolver o script. O metodo de usar as dependencias segue os mesmos exatos principios para processos administrativos.
+    
